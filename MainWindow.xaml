@@ -31,6 +31,8 @@
         <TextBlock Text="Не зарегистрированы?" FontSize="12" Grid.Column="2" Grid.ColumnSpan="3" Margin="10,10,83,22" Grid.Row="5"/>
         <TextBlock Text="Зарегистрироваться" Grid.ColumnSpan="2" Margin="16,10,118,44" Grid.RowSpan="2" Grid.Row="5" Grid.Column="3" MouseLeftButtonDown="TextBlock_MouseLeftButtonDown"/>
         <Button x:Name="t1" Content="Войти" Grid.Column="2" Margin="85,38,85,35" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Click="t1_Click"/>
+        <Image Source="C:\Users\student\Desktop\practic_lit\картинки\free-icon-user-1077063.png" Margin="14,4,14,10" Grid.Row="3" Grid.Column="1"/>
+        <Image Source="C:\Users\student\Desktop\practic_lit\картинки\free-icon-padlock-2575570.png" Margin="18,14,18,0" Grid.Row="4" RenderTransformOrigin="0.932,0.219" Grid.Column="1"/>
 
     </Grid>
 </Window>

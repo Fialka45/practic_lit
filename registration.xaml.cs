@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,12 +31,66 @@ namespace WpfApp1
             var login = LoginBox.Text;
 
             var pass = Password1.Text;
+            var pass2 = Password2.Text;
 
             var mail = email.Text;
 
             var context = new AppDbContext();
 
             var user_exists = context.Users.FirstOrDefault(x => x.Login == login);
+
+            if (login.Length == 0)
+            {
+                LoginBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Укажите логин");
+                return;
+            }
+            else if (login.Length < 6)
+            {
+                LoginBox.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Логин должен состоять из 6 символов");
+                return;
+            }
+
+            if (mail.Length == 0)
+            {
+                email.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Укажите почту");
+                return;
+            } else if (!Regex.IsMatch(mail, @"[@]")) {
+
+                email.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Некоректная почта");
+                return;
+
+            }
+            if (pass.Length == 0)
+            {
+
+                Password1.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Укажите пароль");
+                return;
+            }
+            else if (pass.Length < 6)
+            {
+                Password1.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Пароль должен содержать не менее 6 символов!");
+                return;
+            }
+            else if (!Regex.IsMatch(pass, @"[!?*&$^%()_+]"))
+            {
+                Password1.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("В пароли должен хотя бы состоять один символ! ");
+                return;
+            }
+            else if (pass != pass2)
+            {
+                Password1.BorderBrush = new SolidColorBrush(Colors.Red);
+                Password2.BorderBrush = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Пароли не совпадают!");
+                return;
+            }
+
             if (user_exists != null)
             {
                 MessageBox.Show("псыж");
@@ -45,7 +100,7 @@ namespace WpfApp1
             var user = new user { Login = login, Password = pass, Email = mail};
             context.Users.Add(user);
             context.SaveChanges();
-            MessageBox.Show("Welcome to the club, buddy");
+            MessageBox.Show("Вы успешно зарегистрировались!");
 
         }
 
